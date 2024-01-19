@@ -1,0 +1,26 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  form {
+    text-align: center;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  input {
+    width: 200px;
+    padding: 5px;
+  }
+  
+  button {
+    padding: 8px;
+  }
+  
