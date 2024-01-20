@@ -21,15 +21,14 @@ app.post('/weather', async (req, res) => {
     const response = await axios.get(apiUrl);
     const weatherData = response.data;
 
-    const weatherInfo = `
-      Current weather in ${city}:
-      - Description: ${weatherData.weather[0].description}
-      - Temperature: ${weatherData.main.temp}°C
-      - Pressure: ${weatherData.main.pressure} hPa
-      - Humidity: ${weatherData.main.humidity}%
-      - Wind: ${weatherData.wind.speed} m/s, ${windDirection(weatherData.wind.deg)}
-      - Probability of precipitation: ${weatherData.clouds.all}%
-    `;
+    const weatherInfo = {
+      description: `Description: ${weatherData.weather[0].description}`,
+      temperature: `Temperature: ${weatherData.main.temp}°C`,
+      pressure: `Pressure: ${weatherData.main.pressure} hPa`,
+      humidity: `Humidity: ${weatherData.main.humidity}%`,
+      wind: `Wind: ${weatherData.wind.speed} m/s, ${windDirection(weatherData.wind.deg)}`,
+      precipitation: `Probability of precipitation: ${weatherData.clouds.all}%`
+    };
 
     res.send(weatherInfo);
   } catch (error) {

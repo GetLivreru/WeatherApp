@@ -12,5 +12,50 @@
     <input type="text" id="city" name="city" required>
     <button type="submit">Get Weather</button>
   </form>
+  <div class="weather-box" id="description"></div>
+  <div class="weather-box" id="temperature"></div>
+  <div class="weather-box" id="pressure"></div>
+  <div class="weather-box" id="humidity"></div>
+  <div class="weather-box" id="wind"></div>
+  <div class="weather-box" id="precipitation"></div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+  const form = document.querySelector('form');
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const cityInput = document.getElementById('city');
+    const city = cityInput.value;
+
+    try {
+      const response = await fetch('/weather', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({ city }),
+      });
+
+      const weatherInfo = await response.json();
+
+      // Display weather information in corresponding boxes
+      displayWeatherInfo('description', weatherInfo.description);
+      displayWeatherInfo('temperature', weatherInfo.temperature);
+      displayWeatherInfo('pressure', weatherInfo.pressure);
+      displayWeatherInfo('humidity', weatherInfo.humidity);
+      displayWeatherInfo('wind', weatherInfo.wind);
+      displayWeatherInfo('precipitation', weatherInfo.precipitation);
+    } catch (error) {
+      console.error(error);
+    }
+  });
+});
+
+function displayWeatherInfo(boxId, info) {
+  const box = document.getElementById(boxId);
+  box.textContent = info;
+}
+
+  </script>
 </body>
 </html>
