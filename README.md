@@ -19,10 +19,8 @@ Welcome to WeatherApp, a simple weather application that provides real-time weat
    ```
 2. **Start The Project:**
    ```bash
-cd WeatherApp
-npm install
-```
-```
+   cd WeatherApp
+   npm install
 3. **Running the Application**
 Start the server
 ```bash
