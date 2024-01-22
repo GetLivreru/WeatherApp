@@ -24,7 +24,10 @@ Welcome to WeatherApp, a simple weather application that provides real-time weat
 3. **Running the Application**
 Start the server
    ```bash
-   node app.js
+   cd js
+   node js 
+     or
+   node index.js
      ```
 Your web browser and go to http://localhost:3000
  
