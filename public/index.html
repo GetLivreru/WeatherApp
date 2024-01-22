@@ -6,13 +6,22 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <title>Weather App</title>
   <link rel="stylesheet" href="index.css">
+  <style>
+    img {
+      max-width: 100%; /* Ensure images don't exceed container width */
+      height: auto; /* Maintain aspect ratio */
+    }
+  </style>
 </head>
 <body class="bg-teal-300">
   <form action="/weather" method="post">
     <label class="bg-green-500 text-white py-2 px-4 rounded shadow-lg hover:shadow-cyan-800 cursor-pointer" for="city">Enter City:</label>
     <input type="text" id="city" name="city" class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full leading-5" required>
   <button class="bg-cyan-500 text-white py-2 px-4 rounded shadow-lg hover:shadow-green-800 ml-2 mt-2 cursor-pointer">Get Weather</button>
+  <button id="randomCatButton" class="bg-purple-500 text-white py-2 px-4 rounded shadow-lg ml-2 cursor-pointer">Random Cat</button>
   </form>
+ 
+  <div id="catImage" class="mt-4"></div>
   <div class="weather-box" id="description"></div>
   <div class="weather-box" id="temperature"></div>
   <div class="weather-box" id="pressure"></div>
@@ -24,9 +33,28 @@
   const form = document.querySelector('form');
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
+    const randomCatButton = document.getElementById('randomCatButton');
+      const catImage = document.getElementById('catImage');
 
     const cityInput = document.getElementById('city');
     const city = cityInput.value;
+
+    randomCatButton.addEventListener('click', async () => {
+        try {
+          const catApiResponse = await fetch('https://api.thecatapi.com/v1/images/search', {
+            headers: {
+              'x-api-key': 'live_07TdRXMPkQRZElRyGY0NNW9yNkeDZe35K7PdLEmoJHtnr30nI5lB65yFPvGHjXKD', // Replace with your actual CatAPI key
+            },
+          });
+          const catData = await catApiResponse.json();
+          const catImageUrl = catData[0].url;
+
+          // Display the random cat image
+          catImage.innerHTML = `<img src="${catImageUrl}" alt="Random Cat">`;
+        } catch (error) {
+          console.error(error);
+        }
+      });
 
     try {
       const response = await fetch('/weather', {
