@@ -5,71 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
   <title>Weather App</title>
-  <link rel="stylesheet" href="/styles/index.css">
-  <style>
-    img {
-      max-width: 100%; /* Ensure images don't exceed container width */
-      height: auto; /* Maintain aspect ratio */
-      max-height: 200px; /* Adjust the height as needed */
-    }
-    body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  height: 100vh;
-  margin: 0;
-}
+  <link rel="stylesheet" href="./styles/index.css">
 
-form {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-label {
-  display: block;
-  margin-bottom: 10px;
-}
-
-input {
-  width: 200px;
-  padding: 5px;
-}
-
-button {
-  padding: 8px;
-}
-
-.weather-box {
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 10px;
-  max-width: 300px;
-  text-align: left;
-}
-.input-label {
-  display: block;
-  margin-bottom: 10px;
-  color: white; /* Set the text color to white or a color that contrasts with the blue background */
-}
-
-.get-weather-button {
-  padding: 8px;
-  background-color: green; /* Set the default background color of the button */
-  color: white; /* Set the text color to white or a color that contrasts with the button background color */
-  border: none;
-  cursor: pointer;
-}
-
-.get-weather-button:hover {
-  background-color: darkgreen; /* Change the background color on hover for a visual effect */
-}
-#newsContainer {
-    width: 100%; /* Занимает всю доступную ширину */
-    max-height: 150px; /* Ограничивает высоту */
-    overflow-y: auto; /* Добавляет вертикальную прокрутку, если содержимое больше */
-  }
-  </style>
 </head>
 <body class="bg-teal-300">
   <form action="/weather" method="post">
@@ -78,6 +15,7 @@ button {
   <button class="bg-cyan-500 text-white py-2 px-4 rounded shadow-lg hover:shadow-green-800 ml-2 mt-2 cursor-pointer">Get Weather</button>
   <button id="randomCatButton" class="bg-purple-500 text-white py-2 px-4 rounded shadow-lg ml-2 cursor-pointer">Random Cat</button>
   <button id="getNewsButton" class="bg-blue-500 text-white py-2 px-4 rounded shadow-lg ml-2 cursor-pointer">Get News</button>
+  <button id="openWorldMapButton" class="bg-red-500 text-white py-2 px-4 rounded shadow-lg ml-2 cursor-pointer">Open World Map</button> <!-- Добавлена кнопка "Open World Map" -->
   </form>
   <div id="newsContainer" class="weather-box"></div>
   <div id="catImage" class="mt-4"></div>
@@ -87,10 +25,26 @@ button {
   <div class="weather-box" id="humidity"></div>
   <div class="weather-box" id="wind"></div>
   <div class="weather-box" id="precipitation"></div>
+
+  <div id="weatherDetailsModal" class="hidden fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50">
+    <div class="flex items-center justify-center min-h-screen">
+      <div class="bg-white p-8 rounded shadow-lg">
+        <h1 class="text-lg font-bold mb-4" id="weatherDetailsTitle"></h1>
+        <div class="flex flex-wrap" id="weatherDetailsContent"></div>
+        <button id="closeWeatherDetailsButton" class="mt-4 bg-red-500 text-white py-2 px-4 rounded shadow-lg cursor-pointer">Close</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-  const form = document.querySelector('form');
-  form.addEventListener('submit', async (event) => {
+    const form = document.querySelector('form');
+
+    const weatherDetailsModal = document.getElementById('weatherDetailsModal');
+    const weatherDetailsContent = document.getElementById('weatherDetailsContent');
+    const weatherDetailsTitle = document.getElementById('weatherDetailsTitle');
+
+    form.addEventListener('submit', async (event) => {
     event.preventDefault();
     const randomCatButton = document.getElementById('randomCatButton');
     const catImage = document.getElementById('catImage');
@@ -146,13 +100,49 @@ button {
       } catch (error) {
         console.error(error);
       }
-  });
-});
+       
+      });
+    });
+    document.getElementById('openWeatherDetailsButton').addEventListener('click', async () => {
+        const cityInput = document.getElementById('city');
+        const city = cityInput.value;
 
-function displayWeatherInfo(boxId, info) {
-  const box = document.getElementById(boxId);
-  box.textContent = info;
-}
+        try {
+          const response = await fetch('/weather-details', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({ city }),
+          });
+
+          const weatherDetails = await response.json();
+
+          // Display weather details in modal
+          weatherDetailsTitle.textContent = `Weather Details for ${city}`;
+          weatherDetailsContent.innerHTML = '';
+          Object.entries(weatherDetails).forEach(([key, value]) => {
+            const detailItem = document.createElement('div');
+            detailItem.textContent = `${key}: ${value}`;
+            weatherDetailsContent.appendChild(detailItem);
+          });
+
+          // Show modal
+          weatherDetailsModal.classList.remove('hidden');
+        } catch (error) {
+          console.error(error);
+        }
+      });
+
+
+      document.getElementById('closeWeatherDetailsButton').addEventListener('click', () => {
+        // Hide modal
+        weatherDetailsModal.classList.add('hidden');
+      });
+    function displayWeatherInfo(boxId, info) {
+      const box = document.getElementById(boxId);
+      box.textContent = info;
+    }
 
 function displayNewsInfo(newsInfo) {
     const newsContainer = document.getElementById('newsContainer');
@@ -168,7 +158,6 @@ function displayNewsInfo(newsInfo) {
       newsContainer.appendChild(newsBox);
     });
   }
-
   </script>
 </body>
 </html>

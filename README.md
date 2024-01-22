@@ -1,11 +1,15 @@
  # WeatherApp
 
 Welcome to WeatherApp, a simple weather application that provides real-time weather information based on the OpenWeather API.
-![123](https://github.com/GetLivreru/WeatherApp/assets/110306539/ea0d5233-76f9-426e-a92c-8f17a99ddd63)
+![111](https://github.com/GetLivreru/WeatherApp/assets/110306539/34e295f6-3ad9-44db-a8f8-4f7f4400f667)
 
-
+## APIs
+- **APIs:** OpenWeather APi , CatAPi , News APi
+## Dependencies
+- **Express: Web application framework.**
+- **Styles:TailwindCSS**
+- **POST:Middleware for parsing POST request data.**
 ## Features
-- **APIs:** OpenWeather Api , CatAPI
 - **Current Weather:** Get up-to-date information about the current weather conditions in your location.
 - **5-Day Forecast:** Plan your week with a detailed 5-day weather forecast, including temperature, country code, icon, coordinates, humidity, and more.
 - **Search by Location:** Easily search for weather information in any city around the world.
