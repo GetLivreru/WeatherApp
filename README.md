@@ -23,8 +23,8 @@ Welcome to WeatherApp, a simple weather application that provides real-time weat
    npm install
 3. **Running the Application**
 Start the server
-```bash
-node app.js
-```
+   ```bash
+   node app.js
+     ```
 Your web browser and go to http://localhost:3000
  
