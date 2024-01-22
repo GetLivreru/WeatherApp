@@ -17,14 +17,16 @@ Welcome to WeatherApp, a simple weather application that provides real-time weat
    ```bash
    git clone https://github.com/GetLivreru/WeatherApp.git
    ```
-2.**Start The Project:**
+2. **Start The Project:**
    ```bash
 cd WeatherApp
 npm install
 ```
-3.**Running the Application
+```
+3. **Running the Application**
 Start the server
 ```bash
 node app.js
+```
 Your web browser and go to http://localhost:3000
- ```
+ 
