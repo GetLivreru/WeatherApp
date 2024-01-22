@@ -64,17 +64,22 @@ button {
 .get-weather-button:hover {
   background-color: darkgreen; /* Change the background color on hover for a visual effect */
 }
-
+#newsContainer {
+    width: 100%; /* Занимает всю доступную ширину */
+    max-height: 150px; /* Ограничивает высоту */
+    overflow-y: auto; /* Добавляет вертикальную прокрутку, если содержимое больше */
+  }
   </style>
 </head>
 <body class="bg-teal-300">
   <form action="/weather" method="post">
-    <label class="bg-green-500 text-white py-2 px-4 rounded shadow-lg hover:shadow-cyan-800 cursor-pointer" for="city">Enter City:</label>
-    <input type="text" id="city" name="city" class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full leading-5" required>
+  <label class="bg-green-500 text-white py-2 px-4 rounded shadow-lg hover:shadow-cyan-800 cursor-pointer" for="city">Enter City:</label>
+  <input type="text" id="city" name="city" class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full leading-5" required>
   <button class="bg-cyan-500 text-white py-2 px-4 rounded shadow-lg hover:shadow-green-800 ml-2 mt-2 cursor-pointer">Get Weather</button>
   <button id="randomCatButton" class="bg-purple-500 text-white py-2 px-4 rounded shadow-lg ml-2 cursor-pointer">Random Cat</button>
+  <button id="getNewsButton" class="bg-blue-500 text-white py-2 px-4 rounded shadow-lg ml-2 cursor-pointer">Get News</button>
   </form>
- 
+  <div id="newsContainer" class="weather-box"></div>
   <div id="catImage" class="mt-4"></div>
   <div class="weather-box" id="description"></div>
   <div class="weather-box" id="temperature"></div>
@@ -88,7 +93,7 @@ button {
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     const randomCatButton = document.getElementById('randomCatButton');
-      const catImage = document.getElementById('catImage');
+    const catImage = document.getElementById('catImage');
 
     const cityInput = document.getElementById('city');
     const city = cityInput.value;
@@ -131,6 +136,16 @@ button {
     } catch (error) {
       console.error(error);
     }
+
+    try {
+        const newsResponse = await fetch('/news');
+        const newsInfo = await newsResponse.json();
+
+        // Display news information in a dedicated section (adjust as needed)
+        displayNewsInfo(newsInfo);
+      } catch (error) {
+        console.error(error);
+      }
   });
 });
 
@@ -138,6 +153,21 @@ function displayWeatherInfo(boxId, info) {
   const box = document.getElementById(boxId);
   box.textContent = info;
 }
+
+function displayNewsInfo(newsInfo) {
+    const newsContainer = document.getElementById('newsContainer');
+
+    // Clear previous news
+    newsContainer.innerHTML = '';
+
+    // Display news information
+    newsInfo.forEach(article => {
+      const newsBox = document.createElement('div');
+      newsBox.classList.add('weather-box');
+      newsBox.innerHTML = `<a href="${article.url}" target="_blank">${article.title}</a><br>${article.description}`;
+      newsContainer.appendChild(newsBox);
+    });
+  }
 
   </script>
 </body>

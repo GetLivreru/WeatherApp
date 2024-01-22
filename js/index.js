@@ -37,6 +37,27 @@ app.post('/weather', async (req, res) => {
   }
 });
 
+app.get('/news', async (req, res) => {
+  try {
+    const newsApiKey = '714b33fc8b2a4e5e872b460be22d6e6c'; // Replace with your actual News API key
+    const newsApiUrl = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${newsApiKey}`;
+
+    const response = await axios.get(newsApiUrl);
+    const articles = response.data.articles;
+
+    const newsInfo = articles.map(article => ({
+      title: article.title,
+      description: article.description,
+      url: article.url,
+    }));
+
+    res.send(newsInfo);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error retrieving news data');
+  }
+});
+
 // Функция для определения направления ветра по градусам
 function windDirection(degrees) {
   if (degrees >= 337.5 || degrees < 22.5) {
