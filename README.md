@@ -25,8 +25,6 @@ Welcome to WeatherApp, a simple weather application that provides real-time weat
 Start the server
    ```bash
    cd js
-   node js 
-     or
    node index.js
      ```
 Your web browser and go to http://localhost:3000
