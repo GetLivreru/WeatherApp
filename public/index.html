@@ -7,11 +7,11 @@
   <title>Weather App</title>
   <link rel="stylesheet" href="index.css">
 </head>
-<body class="bg-blue-500">
+<body class="bg-teal-300">
   <form action="/weather" method="post">
-    <label for="city">Enter City:</label>
-    <input type="text" id="city" name="city" required>
-    <button type="submit">Get Weather</button>
+    <label class="bg-green-500 text-white py-2 px-4 rounded shadow-lg hover:shadow-cyan-800 cursor-pointer" for="city">Enter City:</label>
+  <input type="text" id="city" name="city" required>
+  <button class="bg-cyan-500 text-white py-2 px-4 rounded shadow-lg hover:shadow-green-800 cursor-pointer">Get Weather</button>
   </form>
   <div class="weather-box" id="description"></div>
   <div class="weather-box" id="temperature"></div>

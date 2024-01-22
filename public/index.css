@@ -33,3 +33,20 @@ button {
   max-width: 300px;
   text-align: left;
 }
+.input-label {
+  display: block;
+  margin-bottom: 10px;
+  color: white; /* Set the text color to white or a color that contrasts with the blue background */
+}
+
+.get-weather-button {
+  padding: 8px;
+  background-color: green; /* Set the default background color of the button */
+  color: white; /* Set the text color to white or a color that contrasts with the button background color */
+  border: none;
+  cursor: pointer;
+}
+
+.get-weather-button:hover {
+  background-color: darkgreen; /* Change the background color on hover for a visual effect */
+}
