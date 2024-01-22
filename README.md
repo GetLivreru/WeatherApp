@@ -15,6 +15,7 @@ Welcome to WeatherApp, a simple weather application that provides real-time weat
 1. **Clone the Repository:**
    ```bash
    git clone https://github.com/GetLivreru/WeatherApp.git
-2.**Clone the Repository:**
+2.**Start The Project:**
+   ```bash
 cd WeatherApp
 npm install
