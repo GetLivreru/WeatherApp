@@ -10,8 +10,8 @@
 <body class="bg-teal-300">
   <form action="/weather" method="post">
     <label class="bg-green-500 text-white py-2 px-4 rounded shadow-lg hover:shadow-cyan-800 cursor-pointer" for="city">Enter City:</label>
-  <input type="text" id="city" name="city" required>
-  <button class="bg-cyan-500 text-white py-2 px-4 rounded shadow-lg hover:shadow-green-800 cursor-pointer">Get Weather</button>
+    <input type="text" id="city" name="city" class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full leading-5" required>
+  <button class="bg-cyan-500 text-white py-2 px-4 rounded shadow-lg hover:shadow-green-800 ml-2 mt-2 cursor-pointer">Get Weather</button>
   </form>
   <div class="weather-box" id="description"></div>
   <div class="weather-box" id="temperature"></div>
