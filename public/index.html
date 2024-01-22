@@ -10,6 +10,7 @@
     img {
       max-width: 100%; /* Ensure images don't exceed container width */
       height: auto; /* Maintain aspect ratio */
+      max-height: 200px; /* Adjust the height as needed */
     }
   </style>
 </head>
@@ -50,7 +51,7 @@
           const catImageUrl = catData[0].url;
 
           // Display the random cat image
-          catImage.innerHTML = `<img src="${catImageUrl}" alt="Random Cat">`;
+          catImage.innerHTML = `<img src="${catImageUrl}" alt="Random Cat" class="max-w-full h-auto">`;
         } catch (error) {
           console.error(error);
         }
