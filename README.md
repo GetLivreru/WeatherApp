@@ -1,7 +1,8 @@
  # WeatherApp
 
 Welcome to WeatherApp, a simple weather application that provides real-time weather information based on the OpenWeather API.
-![WeatherApp Screenshot](downloads/weatherapp.png)
+![weatherapp](https://github.com/GetLivreru/WeatherApp/assets/110306539/3551fa6a-0c33-400e-b399-e19f0ccf0827)
+
 ## Features
 
 - **Current Weather:** Get up-to-date information about the current weather conditions in your location.
